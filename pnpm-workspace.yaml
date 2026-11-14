@@ -1,0 +1,9 @@
+packages:
+  - frontend
+  - backend
+
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+onlyBuiltDependencies:
+  - esbuild

@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* The design applies :hover on every device, not only ones with a hover-capable pointer */
+@custom-variant hover (&:hover);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Breakpoints from the design. Order matters: later variants win, phone overrides everything. */
+@custom-variant coarse (@media (pointer: coarse));
+@custom-variant tablet (@media (min-width: 761px) and (max-width: 1100px));
+@custom-variant narrow (@media (max-width: 1100px));
+@custom-variant phone {
+  @media (max-width: 760px), (max-height: 500px) and (pointer: coarse) {
+    @slot;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --font-pixel: var(--font-pixelify), monospace;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+}
+
+@theme {
+  --color-wall1: #b8c0ff;
+  --color-wall2: #ffd6e8;
+  --color-wall3: #c8f7dc;
+  --color-win: #fffdf7;
+  --color-ink: #24203a;
+  --color-soft: #5f5a7c;
+  --color-bar: #5a48e8;
+  --color-bar2: #ff7eb6;
+  --color-mint: #3cc58b;
+  --color-link: #4a3bd1;
+  --color-focus: #5a48e8;
+  --color-edge: #24203a;
+  --color-sun: #ffe98a;
+  --color-cream: #fff3c4;
+  --color-lilac: #e3ddff;
+  --color-sky: #d8e6ff;
+  --color-blush: #ffd6e8;
+  --color-leaf: #c8f7dc;
+  --color-chip: #f1edff;
+  --color-haze: #f6f2ff;
+  --color-dash: #d9d4ec;
+
+  --shadow-2: 2px 2px 0 var(--color-edge);
+  --shadow-3: 3px 3px 0 var(--color-edge);
+  --shadow-4: 4px 4px 0 var(--color-edge);
+  --shadow-5: 5px 5px 0 var(--color-edge);
+  --shadow-6: 6px 6px 0 var(--color-edge);
+
+  --animate-pop: pop 0.18s ease-out;
+  --animate-sheet: sheet 0.24s cubic-bezier(0.2, 0.8, 0.3, 1);
+
+  @keyframes pop {
+    from {
+      transform: scale(0.94);
+      opacity: 0;
+    }
+  }
+  @keyframes sheet {
+    from {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+  }
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    height: 100dvh;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    font-size: 15px;
+    line-height: 1.5;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 15% 20%, var(--color-wall2), transparent 45%),
+      radial-gradient(circle at 85% 75%, var(--color-wall3), transparent 45%),
+      linear-gradient(160deg, var(--color-wall1), #d9c8ff);
+  }
+  a {
+    color: var(--color-link);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  /* browser default; the Tailwind preflight would make buttons inherit the body line-height */
+  button {
+    line-height: normal;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
 }

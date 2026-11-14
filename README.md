@@ -35,3 +35,30 @@ frontend/src
   views/        page views + components (V)
   app/          Next.js routes rendering views
 ```
+
+## Docker / Northflank
+
+The root `Dockerfile` builds both apps into one image. In the container:
+
+- Next.js (standalone build) listens on `PORT` (default `3000`), the only port to expose.
+- Express listens internally on `4000`. Next.js proxies `/api/*` to it (see `frontend/next.config.ts`).
+- `docker/start.mjs` starts both processes. If either one exits, it stops the other so the container restarts.
+
+Build and run locally:
+
+```bash
+docker build --build-arg SITE_URL=https://your-domain.com -t portfolio .
+docker run -p 3000:3000 -e DATABASE_URL="postgresql://..." portfolio
+```
+
+Northflank setup (Combined or Deployment service, build from repo):
+
+1. Build type: **Dockerfile**, build context `/`, Dockerfile path `/Dockerfile`.
+2. Networking: add port **3000**, protocol HTTP, **public**.
+3. Build argument: `SITE_URL` set to the public URL. It is used for canonical/Open Graph URLs, `robots.txt` and the sitemap.
+4. Runtime variables: `DATABASE_URL` set to your Neon connection string (store it as a secret).
+5. Run `pnpm db:push` from your machine against the same database to create the tables.
+
+## Resume PDF
+
+The resume window links to `/CV_Nicha.pdf`. Put the public version at `frontend/public/CV_Nicha.pdf`.

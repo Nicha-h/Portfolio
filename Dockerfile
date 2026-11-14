@@ -11,6 +11,9 @@ COPY backend/package.json backend/
 RUN pnpm install --frozen-lockfile
 
 COPY . .
+# Public URL of the site, baked into canonical/Open Graph tags, robots.txt and the sitemap
+ARG SITE_URL=http://localhost:3000
+ENV SITE_URL=$SITE_URL
 RUN pnpm build
 
 # Backend with production-only node_modules

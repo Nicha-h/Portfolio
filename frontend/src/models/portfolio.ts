@@ -107,7 +107,7 @@ export const projects: PortfolioProject[] = [
       "Docker on NorthFlank, Cloudflare for CDN/SSL, API documented with Swagger.",
     ],
     chips: ["Hono", "React", "Docker", "NorthFlank", "Cloudflare"],
-    screenshot: { src: ticktaskShot, alt: "TickTask login page with the TickTask logo and \"Time to be productive\" heading" },
+    screenshot: { src: ticktaskShot, alt: "TickTask home page: welcome message, today's date, a week calendar with a task, and task categories" },
     folder: { name: "TickTask", lines: ["Live · ticktask.space", "Hono · Docker · Cloudflare"] },
     recent: { name: "TickTask", summary: "Hono, Docker, Cloudflare · live" },
   },

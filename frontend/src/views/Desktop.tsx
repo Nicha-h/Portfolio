@@ -29,7 +29,10 @@ export default function Desktop({ children }: { children: ReactNode }) {
         className="statusbar hidden phone:flex fixed top-0 inset-x-0 h-[calc(32px+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] px-[18px] items-center justify-between font-pixel text-[14px] z-[10001]"
       >
         <span>{clock}</span>
-        <span>▂▄▆ ◔</span>
+        <span className="flex items-center gap-1">
+          <PixelIcon name="dot" />
+          open to work
+        </span>
       </div>
 
       <main

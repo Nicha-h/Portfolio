@@ -81,6 +81,33 @@
       radial-gradient(circle at 85% 75%, var(--color-wall3), transparent 45%),
       linear-gradient(160deg, var(--color-wall1), #d9c8ff);
   }
+  /* The design is sized in px for laptop screens; scale it up on big monitors so it doesn't look tiny.
+     1.25 on a 1080p monitor gives the same layout as a 1080p laptop at Windows' 125% scaling.
+     useWindowManager measures the zoomed page, so dragging and placement keep working. */
+  @media (min-width: 1600px) and (min-height: 820px) {
+    html {
+      zoom: 1.125;
+    }
+    body {
+      height: calc(100dvh / 1.125);
+    }
+  }
+  @media (min-width: 1840px) and (min-height: 880px) {
+    html {
+      zoom: 1.25;
+    }
+    body {
+      height: calc(100dvh / 1.25);
+    }
+  }
+  @media (min-width: 2400px) and (min-height: 1200px) {
+    html {
+      zoom: 1.6;
+    }
+    body {
+      height: calc(100dvh / 1.6);
+    }
+  }
   a {
     color: var(--color-link);
     font-weight: 700;

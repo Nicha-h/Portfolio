@@ -12,7 +12,6 @@ export const palette: Record<string, string> = {
   b: "#5a48e8", // purple
   m: "#3cc58b", // mint
   S: "#8a90a6", // text lines
-  n: "#b07a4a", // leather
   o: "#d98c4a", // bronze
   s: "#c9cfdd", // silver
 };
@@ -142,42 +141,6 @@ export const pixelIcons = {
     ".kk..........kk.",
     ".kk..........kk.",
     ".kkkkkkkkkkkkkk.",
-    "................",
-  ],
-  octopus: [
-    "................",
-    ".....kkkkkk.....",
-    "...kkppppppkk...",
-    "..kppppppppppk..",
-    "..kppkkppkkppk..",
-    "..kppkkppkkppk..",
-    "..kppppppppppk..",
-    "..kppppppppppk..",
-    ".kppppppppppppk.",
-    ".kppppppppppppk.",
-    "kppkppkppkppkppk",
-    "kpk.kpk.kpk.kpk.",
-    "kk..kk..kk..kk..",
-    "................",
-    "................",
-    "................",
-  ],
-  briefcase: [
-    "................",
-    "................",
-    ".....kkkkkk.....",
-    ".....k....k.....",
-    "kkkkkkkkkkkkkkkk",
-    "knnnnnnnnnnnnnnk",
-    "knnnnnnnnnnnnnnk",
-    "kkkkkkkyykkkkkkk",
-    "knnnnnnyynnnnnnk",
-    "knnnnnnnnnnnnnnk",
-    "knnnnnnnnnnnnnnk",
-    "knnnnnnnnnnnnnnk",
-    "knnnnnnnnnnnnnnk",
-    "kkkkkkkkkkkkkkkk",
-    "................",
     "................",
   ],
   star: [

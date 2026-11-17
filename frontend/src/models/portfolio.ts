@@ -1,3 +1,7 @@
+import type { StaticImageData } from "next/image";
+import clickdeeShot from "@/assets/projects/clickdee.jpg";
+import ticktaskShot from "@/assets/projects/ticktask.png";
+
 export type WindowTheme = "default" | "alt" | "mint";
 
 /** Pixel icon shown at the start of a project badge */
@@ -17,6 +21,8 @@ export interface PortfolioProject {
   badge: { icon: BadgeIcon; text: string; link?: { href: string; label: string } };
   bullets: string[];
   chips: string[];
+  /** Snapshot of the app, shown at the top of the project window */
+  screenshot?: { src: StaticImageData; alt: string };
   /** Tile in the projects/ folder window */
   folder: { name: string; lines: [string, string] };
   /** Row in the phone home screen's "recent projects" widget */
@@ -32,15 +38,20 @@ export const projects: PortfolioProject[] = [
     theme: "default",
     heading: "Clickdee — AI marketing platform",
     meta: "Full-Stack Developer · SIT Innoventure 2026 · May–Aug 2026 · team of 5",
-    badge: { icon: "medalBronze", text: "3rd of 14 teams" },
+    badge: {
+      icon: "medalBronze",
+      text: "3rd of 14 teams · live at ",
+      link: { href: "https://p01--clickdee--sdt487jznbmf.code.run", label: "clickdee demo" },
+    },
     bullets: [
       "Full-stack AI marketing MVP for SMEs in ~3 months: AI campaign creation, click-through analytics dashboards, AI business-advice chat.",
       "Backend services and REST endpoints with Hono, Prisma and PostgreSQL, plus the React + Tailwind dashboard and onboarding (designed in Figma).",
       "Gemini and Groq generate campaign copy tailored to tone, region and weather; containerised with Docker.",
     ],
     chips: ["Hono", "Prisma", "PostgreSQL", "React", "Tailwind", "Docker"],
+    screenshot: { src: clickdeeShot, alt: "Clickdee home dashboard: AI agent status, reach, clicks, ad spend and ROI cards" },
     folder: { name: "Clickdee", lines: ["AI marketing · 3rd/14", "Hono · Prisma · React"] },
-    recent: { name: "Clickdee", summary: "AI marketing · Hono, Prisma, React · 3rd/14" },
+    recent: { name: "Clickdee", summary: "AI marketing · Hono, Prisma, React · 3rd/14 · live" },
   },
   {
     id: "p-nfc",
@@ -96,6 +107,7 @@ export const projects: PortfolioProject[] = [
       "Docker on NorthFlank, Cloudflare for CDN/SSL, API documented with Swagger.",
     ],
     chips: ["Hono", "React", "Docker", "NorthFlank", "Cloudflare"],
+    screenshot: { src: ticktaskShot, alt: "TickTask login page with the TickTask logo and \"Time to be productive\" heading" },
     folder: { name: "TickTask", lines: ["Live · ticktask.space", "Hono · Docker · Cloudflare"] },
     recent: { name: "TickTask", summary: "Hono, Docker, Cloudflare · live" },
   },

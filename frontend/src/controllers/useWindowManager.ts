@@ -45,7 +45,14 @@ export function useWindowManager() {
       if (open) w.dataset.state = "open";
       else delete w.dataset.state;
     };
-    const area = () => ({ W: innerWidth, H: innerHeight - 48, left: innerWidth <= 1100 ? 104 : 120 });
+    const desk = $("desktop");
+    // the desktop area in page px; on big screens the page is CSS-zoomed (globals.css), so this is smaller than innerWidth
+    const area = () => {
+      const W = desk.offsetWidth;
+      return { W, H: desk.offsetHeight, left: W <= 1100 ? 104 : 120 };
+    };
+    // pointer events and getBoundingClientRect report screen px; divide by this to get page px
+    const zoom = () => desk.getBoundingClientRect().width / desk.offsetWidth || 1;
     const fits = (w: HTMLElement, l: number, t: number) => {
       const { W, H } = area();
       return l + w.offsetWidth <= W - 8 && t + w.offsetHeight <= H - 8;
@@ -280,15 +287,16 @@ export function useWindowManager() {
         (e) => {
           if (mode === "phone" || (e.target as Element).closest("button")) return;
           const w = bar.parentElement!;
-          const sx = e.clientX - w.offsetLeft;
-          const sy = e.clientY - w.offsetTop;
+          const k = zoom();
+          const sx = e.clientX / k - w.offsetLeft;
+          const sy = e.clientY / k - w.offsetTop;
           bar.setPointerCapture(e.pointerId);
           bar.style.cursor = "grabbing";
           const move = (ev: PointerEvent) => {
             userArranged = true;
             hideTip();
-            w.style.left = Math.max(-w.offsetWidth + 80, Math.min(innerWidth - 80, ev.clientX - sx)) + "px";
-            w.style.top = Math.max(0, Math.min(innerHeight - 110, ev.clientY - sy)) + "px";
+            w.style.left = Math.max(-w.offsetWidth + 80, Math.min(innerWidth / k - 80, ev.clientX / k - sx)) + "px";
+            w.style.top = Math.max(0, Math.min(innerHeight / k - 110, ev.clientY / k - sy)) + "px";
           };
           const up = () => {
             bar.removeEventListener("pointermove", move);
@@ -311,10 +319,12 @@ export function useWindowManager() {
     }
     function positionTip() {
       if (!tipFor) return;
-      const r = tipFor.getBoundingClientRect();
+      const k = zoom();
+      const b = tipFor.getBoundingClientRect();
+      const r = { left: b.left / k, top: b.top / k, bottom: b.bottom / k, width: b.width / k };
       const tw = tip.offsetWidth;
       const th = tip.offsetHeight;
-      const x = Math.max(8, Math.min(innerWidth - tw - 8, r.left + r.width / 2 - tw / 2));
+      const x = Math.max(8, Math.min(innerWidth / k - tw - 8, r.left + r.width / 2 - tw / 2));
       const below = r.top - th - 10 < 8;
       if (below) tip.dataset.below = "";
       else delete tip.dataset.below;

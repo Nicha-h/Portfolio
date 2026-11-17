@@ -90,7 +90,15 @@ export default function ResumeWindow() {
       <SectionTitle>Projects &amp; competitions</SectionTitle>
       <Entry
         role="Full-Stack Developer"
-        org="CLICKDEE: AI-Powered Marketing Platform"
+        org={
+          <>
+            CLICKDEE: AI-Powered Marketing Platform (
+            <a href="https://p01--clickdee--sdt487jznbmf.code.run" target="_blank" rel="noopener">
+              live demo
+            </a>
+            )
+          </>
+        }
         meta="SIT Innoventure 2026 · 3rd of 14 teams · May – August 2026 · Team of 5"
         bullets={[
           "Built a full-stack AI marketing MVP for SMEs over ~3 months, covering AI-assisted campaign creation, click-through analytics dashboards and an AI business-advice chat.",
